@@ -1,0 +1,98 @@
+<ion-header class="danger">
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Signup Page</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding="true" scroll="false">
+  <div class="logo">
+    <img src="../../assets/imgs/signin.png" alt="Ionic logo">
+  </div>
+  <div class="panel-group ">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <b>SignUp</b>
+      </div>
+      <div class="panel-body">
+        <!-- <b>For Users</b> -->
+        <form [formGroup]="signupForm" (ngSubmit)="onFormSubmit()">
+          <div class="row responsive-md">
+            <div class="col col-50 col-offset-25">
+              <ion-item class="form-group">
+                <ion-label>UserName</ion-label>
+                <ion-input type="text" formControlName="username" placeholder="John"></ion-input>
+              </ion-item>
+              <div *ngIf="username.errors?.pattern">
+                Please enter you username, digits are not accepted
+              </div>
+              <ion-item class="form-group">
+                <ion-label>DOB</ion-label>
+                <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DDDD MMMM YYYY" min="1940" formControlName="dob"></ion-datetime>
+              </ion-item>
+              <ion-item class="form-group">
+                <ion-label>Email</ion-label>
+                <ion-input type="email" formControlName="email" placeholder="abc@xyz.com"></ion-input>
+              </ion-item>
+              <div *ngIf="email.errors?.pattern">
+                Please enter correct email ID
+              </div>
+
+              <ion-item class="form-group">
+                <ion-label>Mobile</ion-label>
+                <ion-input type="number" formControlName="mobileNo" placeholder="98xxxxxx81"></ion-input>
+              </ion-item>
+              <div *ngIf="mobileNo.errors?.minlength">
+                Number should be of 10 digits
+              </div>
+              <div *ngIf="mobileNo.errors?.maxlength">
+                Number should be of 10 digits
+              </div>
+              <ion-item class="form-group">
+                <ion-label>Address</ion-label>
+                <ion-input type="text" formControlName="address" placeholder="601-B3, Atul Nagar, Warje, Pune"></ion-input>
+              </ion-item>
+              <!-- <div *ngIf="address.errors?.required">
+              Please enter Address
+         </div> -->
+              <ion-item class="form-group">
+                <ion-label>PinCode</ion-label>
+                <ion-input type="number" formControlName="pincode" placeholder="411058"></ion-input>
+              </ion-item>
+              <div *ngIf="pincode.errors?.pattern">
+                Please enter correct pincode
+              </div>
+              <div *ngIf="pincode.errors?.minlength">
+                PinCode should be of 6 digits
+              </div>
+              <div *ngIf="pincode.errors?.maxlength">
+                PinCode should be of 6 digits
+              </div>
+              <ion-item class="form-group">
+                <ion-label>Password</ion-label>
+                <ion-input type="password" formControlName="password"></ion-input>
+              </ion-item>
+              <div *ngIf="password.errors?.minlength">
+                Password should be of min 8 characters
+              </div>
+              <div class="form-group checkbox">
+                <!-- <ion-label> -->
+                <input type="checkbox" formControlName="checkbox"> Confirm that you've read the Terms and Conditions
+                <!-- </ion-label> -->
+              </div>
+              <ion-item>
+                <button ion-button class="button-block button-positive" type="submit" [disabled]="!signupForm.valid" padding>Submit
+                  <ion-icon name="paw"></ion-icon>
+                </button>
+              </ion-item>
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,8 @@
+{
+  "name": "DukeLaundries",
+  "app_id": "557eadf9",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}

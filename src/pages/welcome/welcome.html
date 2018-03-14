@@ -1,0 +1,108 @@
+<!-- 
+  Generated template for the WelcomePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!-- <ion-header>
+
+  <ion-navbar>
+    <ion-title>welcome</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+</ion-content> -->
+
+<!-- <ion-content class="slides-background">
+  <h1 font-size>Duke Laundries</h1>
+
+  <h3>Since 1960</h3>
+
+</ion-content>
+
+
+<ion-slides>
+    <ion-slide >
+      <h1>We Wash your Clothes with Care</h1>
+    </ion-slide>
+    <ion-slide>
+      <h1>Give us a chance to serve you</h1>
+    </ion-slide>
+    <ion-slide>
+      <h1>Give us your clothes</h1>
+      <h2>Sit back and Relax</h2>
+      <h1>Get your clothes back as fresh as ever.!</h1>
+    </ion-slide>
+    <ion-slide>
+      <page-home></page-home>
+    </ion-slide>
+  </ion-slides> -->
+
+
+<ion-header no-border>
+  <ion-navbar>
+      <h1>Duke Laundries</h1>
+      <h5>Since 1960</h5>
+    <ion-buttons end *ngIf="showSkip">
+      <button ion-button (click)="startApp()" color="primary">Skip</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-bounce>
+    
+  <ion-slides #slides (ionSlideWillChange)="onSlideChangeStart($event)" pager>
+
+    <ion-slide>
+      <img src="../../assets/imgs/shirt.png " class="slide-image" />
+      <h2 class="slide-title">
+        Welcome to
+        <b>Duke Laundries</b>
+      </h2>
+      <p>
+        The
+        <b>Laundary</b> you can
+        <b>Trust</b> on.
+      </p>
+      <p>
+        We Wash your Clothes with Care
+      </p>
+      <p>
+        Give us a chance to serve you
+      </p>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="../../assets/imgs/give.png" class="slide-image" />
+      <h2 class="slide-title">Give your clothes to us</h2>
+      <p>Your
+        <b>clothes</b> are safe with us and would be taken care of.
+      </p>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="../../assets/imgs/relax.jpg" class="slide-image" />
+      <h2 class="slide-title">Sit back and Relax</h2>
+      <p>Your
+        <b>clothes</b> will reach the washing center and would be washed by professionals.
+      </p>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="../../assets/imgs/delivered.jpg" class="slide-image" />
+      <h2 class="slide-title">Get your clothes back as fresh as ever.!</h2>
+      <p>Your
+        <b>clothes</b> will reach you in time and well packed.
+      </p>
+      <button ion-button icon-end large clear (click)="startApp()">
+        Continue
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+    </ion-slide>
+
+  </ion-slides>
+</ion-content>
