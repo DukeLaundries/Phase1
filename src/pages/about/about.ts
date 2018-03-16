@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { PopoverController } from 'ionic-angular';
 
-/**
- * Generated class for the AboutPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { PopoverPage } from './about-popover';
+
 
 @IonicPage()
 @Component({
@@ -15,7 +12,15 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class AboutPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  // constructor(public navCtrl: NavController, public navParams: NavParams) {
+  // }
+  conferenceDate = '1960-01-01';
+
+  constructor(public popoverCtrl: PopoverController) { }
+
+  presentPopover(event: Event) {
+    let popover = this.popoverCtrl.create(PopoverPage);
+    popover.present({ ev: event });
   }
 
   ionViewDidLoad() {

@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { HttpClientModule } from "@angular/common/http";
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -12,6 +13,8 @@ import { TabsPage } from "../pages/tabs-page/tabs-page";
 import { ContactPage } from "../pages/contact/contact";
 import { MapPage } from "../pages/map/map";
 import { AboutPage } from "../pages/about/about";
+import { PopoverPage } from "../pages/about/about-popover";
+import { SupportPage } from "../pages/support/support";
 
 
 import { IonicStorageModule } from '@ionic/storage';
@@ -31,12 +34,15 @@ import { UserDataProvider } from '../providers/user-data/user-data';
     TabsPage,
     ContactPage,
     MapPage,
-    AboutPage
+    AboutPage,
+    PopoverPage,
+    SupportPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -49,7 +55,9 @@ import { UserDataProvider } from '../providers/user-data/user-data';
     TabsPage,
     ContactPage,
     MapPage,
-    AboutPage
+    AboutPage,
+    PopoverPage,
+    SupportPage
   ],
   providers: [
     StatusBar,

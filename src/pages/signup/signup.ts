@@ -3,6 +3,12 @@ import { NavController, Slides } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ISignUp } from "../../interfaces/user-options";
+import { SignUp } from "../../interfaces/user-options";
+
+
+import { TabsPage } from "../tabs-page/tabs-page";
+import { UserDataProvider } from "../../providers/user-data/user-data";
+
 
 @Component({
     selector: 'page-signup',
@@ -11,10 +17,22 @@ import { ISignUp } from "../../interfaces/user-options";
 export class SignUpPage implements OnInit {
     @ViewChild(Slides) slides: Slides;
     signupForm: FormGroup;
-    signup: ISignUp; // Declare the signupForm 
-    user: any;
+    signupdata: SignUp;
+
+    signupdataInput: SignUp; // Declare the signupForm 
+    // user: any;
+    data: any;
     //Inject the formbuilder into the constructor
-    constructor(private fb: FormBuilder) { }
+    //=====================================================================
+    private user: SignUp;
+	private formSubmitted = false;
+	private usernameAlreadyExists = false;
+
+	// Info messages
+	private msgUsernameAlreadyExists = "Username already exists!";
+    private msgUserAdded = "User added successfully! Redirecting...";
+    //========================================================================
+    constructor(private fb: FormBuilder, private db: UserDataProvider, public navCtrl: NavController) { }
 
     ngOnInit() {
         this.signupForm = this.fb.group({
@@ -50,7 +68,7 @@ export class SignUpPage implements OnInit {
             Validators.required]],
 
 
-            checkbox: ['', [Validators.requiredTrue]]
+            // checkbox: ['', [Validators.requiredTrue]]
             // terms: ['', Validators.requiredTrue]
         })
 
@@ -60,13 +78,52 @@ export class SignUpPage implements OnInit {
 
     public onFormSubmit() {
         if (this.signupForm.valid) {
-            this.signup = this.signupForm.value;
-            console.log(this.signup);
+            this.signupdata = this.signupForm.value;
+            // this.signupdata.username = this.signupdataInput.username;
+            // this.signupdata.dob = this.signupdataInput.dob;
+            // this.signupdata.email = this.signupdataInput.email;
+            // this.signupdata.mobileNo = this.signupdataInput.mobileNo;
+            // this.signupdata.address = this.signupdataInput.address;
+            // this.signupdata.pincode = this.signupdataInput.pincode;
+            // this.signupdata.password = this.signupdataInput.password;
+            console.log(this.signupdata);
+            //================================================
+            this.db.mongoSelect("users", "{username:'" + this.signupdata.username + "'}").subscribe(
+                data => {
+                    console.log(data);
+                    if (data.length > 0) {
+                        this.usernameAlreadyExists = true;
+                    } else {
+                        // Select the max user ID
+                        this.db.mongoSelectOne("users", "{id:1}", "{id:-1}").subscribe(
+                            data => {
+                                // the new user will have maxID+1
+                                // this.user = new ISignUp(data[0].id + 1,
+                                //                           signupdata.username,
+                                //                         //   bcrypt.hashSync(userForm.password, bcrypt.genSaltSync(10)),
+                                //                           userForm.email,
+                                //                           userForm.role,
+                                //                           "");
+                                // this.db.users.push(this.user);
+                                this.db.mongoInsert("users", this.signupdata).subscribe();
+                            }
+                        );
+                        this.formSubmitted = true;
+                        setTimeout(() => {
+                            this.formSubmitted = false;
+                            // this.router.navigate(['../../Upload']);
+                        }, 2000);
+                        this.navCtrl.push(TabsPage);
+                    }
+                }
+            );
+
+        }
             /* Any API call logic via services goes here */
         }
 
 
-    }
+    
     get username() {
         return this.signupForm.get('username');
     }
