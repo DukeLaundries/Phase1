@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavController, Slides } from 'ionic-angular';
+import { NavController, Slides, PopoverController, LoadingController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { ISignUp } from "../../interfaces/user-options";
 import { SignUp } from "../../interfaces/user-options";
 
 
 import { TabsPage } from "../tabs-page/tabs-page";
+import { UserExistPopoverPage } from "../popover/userexist-popover";
 import { UserDataProvider } from "../../providers/user-data/user-data";
 
 
@@ -32,7 +32,11 @@ export class SignUpPage implements OnInit {
 	private msgUsernameAlreadyExists = "Username already exists!";
     private msgUserAdded = "User added successfully! Redirecting...";
     //========================================================================
-    constructor(private fb: FormBuilder, private db: UserDataProvider, public navCtrl: NavController) { }
+    constructor(private fb: FormBuilder, 
+                private db: UserDataProvider, 
+                public navCtrl: NavController,
+                public popoverCtrl: PopoverController,
+                public loadingCtrl: LoadingController) { }
 
     ngOnInit() {
         this.signupForm = this.fb.group({
@@ -76,7 +80,12 @@ export class SignUpPage implements OnInit {
     }
 
 
-    public onFormSubmit() {
+    public onFormSubmit(event: Event) {
+        let loader = this.loadingCtrl.create({
+            content: "Please wait...",
+            duration: 3000
+          });
+          loader.present();
         if (this.signupForm.valid) {
             this.signupdata = this.signupForm.value;
             // this.signupdata.username = this.signupdataInput.username;
@@ -88,11 +97,18 @@ export class SignUpPage implements OnInit {
             // this.signupdata.password = this.signupdataInput.password;
             console.log(this.signupdata);
             //================================================
-            this.db.mongoSelect("users", "{username:'" + this.signupdata.username + "'}").subscribe(
+            this.db.mongoSelect("users", "{mobileNo:'" + this.signupdata.mobileNo + "'}").subscribe(
                 data => {
                     console.log(data);
                     if (data.length > 0) {
                         this.usernameAlreadyExists = true;
+                        console.log(this.usernameAlreadyExists);
+                        let popover = this.popoverCtrl.create(UserExistPopoverPage);
+                        popover.present();
+                        //popover.present({ ev: event }); //use this to position popover at the point of click on screen
+                        // popover.present({
+                        //     ev: myEvent
+                        // });
                     } else {
                         // Select the max user ID
                         this.db.mongoSelectOne("users", "{id:1}", "{id:-1}").subscribe(

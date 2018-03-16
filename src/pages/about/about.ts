@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PopoverController } from 'ionic-angular';
 
-import { PopoverPage } from './about-popover';
+import { PopoverPage } from '../popover/about-popover';
 
 
 @IonicPage()

@@ -13,8 +13,11 @@ import { TabsPage } from "../pages/tabs-page/tabs-page";
 import { ContactPage } from "../pages/contact/contact";
 import { MapPage } from "../pages/map/map";
 import { AboutPage } from "../pages/about/about";
-import { PopoverPage } from "../pages/about/about-popover";
+import { PopoverPage } from "../pages/popover/about-popover";
 import { SupportPage } from "../pages/support/support";
+import { UserExistPopoverPage } from "../pages/popover/userexist-popover";
+import { WrongPasswordPopover } from "../pages/popover/wrongpasswordpopover";
+import { WrongUserNamePopover } from "../pages/popover/wrongusername-popover";
 
 
 import { IonicStorageModule } from '@ionic/storage';
@@ -36,7 +39,10 @@ import { UserDataProvider } from '../providers/user-data/user-data';
     MapPage,
     AboutPage,
     PopoverPage,
-    SupportPage
+    SupportPage,
+    UserExistPopoverPage,
+    WrongPasswordPopover,
+    WrongUserNamePopover
   ],
   imports: [
     BrowserModule,
@@ -57,7 +63,10 @@ import { UserDataProvider } from '../providers/user-data/user-data';
     MapPage,
     AboutPage,
     PopoverPage,
-    SupportPage
+    SupportPage,
+    UserExistPopoverPage,
+    WrongPasswordPopover,
+    WrongUserNamePopover
   ],
   providers: [
     StatusBar,

@@ -19,7 +19,7 @@
       </div>
       <div class="panel-body">
         <!-- <b>For Users</b> -->
-        <form [formGroup]="signupForm" (ngSubmit)="onFormSubmit()">
+        <form [formGroup]="signupForm" (ngSubmit)="onFormSubmit($event)">
           <div class="row responsive-md">
             <div class="col col-50 col-offset-25">
               <ion-item class="form-group">
@@ -92,6 +92,7 @@
           </div>
         </form>
       </div>
+      
 
     </div>
   </div>
