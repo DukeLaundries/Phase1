@@ -30,7 +30,7 @@ export class MyApp {
       { title: 'Login', component: LoginPage },
       { title: 'SignUp', component: SignUpPage },
       { title: 'Welcome', component: WelcomePage },
-      { title: 'Tabs page', component: TabsPage }
+      // { title: 'Tabs page', component: TabsPage }
     ];
 
   }

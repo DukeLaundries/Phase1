@@ -1,5 +1,5 @@
 import { Component,OnInit,ViewChild  } from '@angular/core';
-import { NavController,Slides, PopoverController, LoadingController  } from 'ionic-angular';
+import { NavController,Slides, PopoverController, LoadingController, ToastController  } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
@@ -70,7 +70,8 @@ export class LoginPage implements OnInit {
                 //private router: Router,
                 private db: UserDataProvider,
                 public popoverCtrl: PopoverController,
-                public loadingCtrl: LoadingController) {}
+                public loadingCtrl: LoadingController,
+                public toastCtrl: ToastController) {}
      
     ngOnInit() {
         this.loginForm  = this.fb.group({
@@ -91,8 +92,9 @@ export class LoginPage implements OnInit {
                     this.ReceivedUserData = data;
                     if (data.length === 0) {
                         this.wrongUsername = true;
-                        let popover = this.popoverCtrl.create(WrongUserNamePopover);
-                        popover.present();
+                        // let popover = this.popoverCtrl.create(WrongUserNamePopover);
+                        // popover.present();
+                        this.presentToast();
                         console.log("wrong username");
                         console.log(data);
                     } else if ((this.ReceivedUserData[0].mobileNo == this.LoginUser.username) && (this.ReceivedUserData[0].password == this.LoginUser.password)) {
@@ -113,8 +115,9 @@ export class LoginPage implements OnInit {
                         this.navCtrl.push(TabsPage);
                     } else {
                         this.wrongPassword = true;
-                        let popover = this.popoverCtrl.create(WrongPasswordPopover);
-                        popover.present();
+                        // let popover = this.popoverCtrl.create(WrongPasswordPopover);
+                        // popover.present();
+                        this.presentToast();
                         console.log("wrong password");
                     }
                 }
@@ -122,8 +125,27 @@ export class LoginPage implements OnInit {
         }
     }
 
-        onSignup() {
+    onSignup() {
       this.navCtrl.push(SignUpPage);
     }
+
+    presentToast(){
+        {
+            let toast = this.toastCtrl.create({
+              message: 'You have entered wrong Username or Password',
+              duration: 3000,
+              position: 'middle',
+              closeButtonText: 'Close',
+              showCloseButton: true,
+            });
+          
+            toast.onDidDismiss(() => {
+              console.log('Dismissed toast');
+            });
+          
+            toast.present();
+          }
+    }
+
   
 }

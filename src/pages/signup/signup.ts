@@ -72,7 +72,7 @@ export class SignUpPage implements OnInit {
             Validators.required]],
 
 
-            // checkbox: ['', [Validators.requiredTrue]]
+            checkbox: ['', [Validators.requiredTrue]]
             // terms: ['', Validators.requiredTrue]
         })
 
@@ -95,6 +95,7 @@ export class SignUpPage implements OnInit {
             // this.signupdata.address = this.signupdataInput.address;
             // this.signupdata.pincode = this.signupdataInput.pincode;
             // this.signupdata.password = this.signupdataInput.password;
+            console.log(this.signupdata.username);
             console.log(this.signupdata);
             //================================================
             this.db.mongoSelect("users", "{mobileNo:'" + this.signupdata.mobileNo + "'}").subscribe(
